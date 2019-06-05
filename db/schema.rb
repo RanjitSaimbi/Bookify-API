@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2019_06_05_123754) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authors", force: :cascade do |t|
     t.string "author"
-    t.integer "book_id"
+    t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_authors_on_book_id"
@@ -22,15 +25,15 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "closed_listings", force: :cascade do |t|
-    t.integer "listing_id"
-    t.integer "purchaser_id"
+    t.bigint "listing_id"
+    t.bigint "purchaser_id"
     t.string "exchange_item"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,15 +43,15 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
 
   create_table "genres", force: :cascade do |t|
     t.string "genre"
-    t.integer "book_id"
+    t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_genres_on_book_id"
   end
 
   create_table "listings", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "user_id"
+    t.bigint "book_id"
+    t.bigint "user_id"
     t.string "location"
     t.string "image_url"
     t.string "category"
@@ -61,10 +64,10 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "book_id"
+    t.bigint "book_id"
     t.string "body"
-    t.integer "sender_id"
-    t.integer "recipient_id"
+    t.bigint "sender_id"
+    t.bigint "recipient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_messages_on_book_id"
@@ -82,4 +85,14 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "authors", "books"
+  add_foreign_key "books", "users"
+  add_foreign_key "closed_listings", "listings"
+  add_foreign_key "closed_listings", "users", column: "purchaser_id"
+  add_foreign_key "genres", "books"
+  add_foreign_key "listings", "books"
+  add_foreign_key "listings", "users"
+  add_foreign_key "messages", "books"
+  add_foreign_key "messages", "users", column: "recipient_id"
+  add_foreign_key "messages", "users", column: "sender_id"
 end
