@@ -17,7 +17,8 @@ class ListingsController < ApplicationController
         user = get_current_user
         if user
      
-          book = Book.create(book_params, user: user)
+          book = Book.create(user: user)
+          book.update(book_params)
           book.save 
        
           listing = Listing.create(listing_params)
@@ -67,7 +68,7 @@ class ListingsController < ApplicationController
     private 
 
     def book_params 
-        params.require(:book).permit(:title, :author, genre)
+        params.require(:book).permit(:title, :author, :genre)
     end 
 
     def listing_params
