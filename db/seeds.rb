@@ -7,16 +7,10 @@ m = User.create(email: "myrto.konstantinidi@gmail.com", username: "Myrto", passw
 10.times do 
     br = Book.create(
     title: Faker::Book.title,
-    user: r
+    user: r,
+    genre: Faker::Book.genre,
+    author: Faker::Book.author
     )
-    gr = Genre.new(
-        genre: Faker::Book.genre
-    )
-    br.genres.push(gr)
-    ar = Author.new(
-        author: Faker::Book.author
-    )
-    br.authors.push(ar)
 
     Listing.create(
         book: br,
@@ -31,16 +25,10 @@ end
 10.times do 
     bm = Book.create(
     title: Faker::Book.title,
-    user: m
+    user: m,
+    genre: Faker::Book.genre,
+    author: Faker::Book.author
     )
-    gm = Genre.new(
-        genre: Faker::Book.genre
-    )
-    bm.genres.push(gm)
-    am = Author.new(
-        author: Faker::Book.author
-    )
-    bm.authors.push(am)
 
     Listing.create(
         book: bm,
