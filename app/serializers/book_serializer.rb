@@ -1,5 +1,5 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :authors, :genres 
+  attributes :id, :title, :authors, :genres 
 
   def genres  
     ActiveModel::SerializableResource.new(object.genres,  each_serializer: GenreSerializer)
