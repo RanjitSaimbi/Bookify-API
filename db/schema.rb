@@ -15,16 +15,10 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authors", force: :cascade do |t|
-    t.string "author"
-    t.bigint "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_authors_on_book_id"
-  end
-
   create_table "books", force: :cascade do |t|
     t.string "title"
+    t.string "author"
+    t.string "genre"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,14 +33,6 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_closed_listings_on_listing_id"
     t.index ["purchaser_id"], name: "index_closed_listings_on_purchaser_id"
-  end
-
-  create_table "genres", force: :cascade do |t|
-    t.string "genre"
-    t.bigint "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_genres_on_book_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -83,11 +69,9 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "authors", "books"
   add_foreign_key "books", "users"
   add_foreign_key "closed_listings", "listings"
   add_foreign_key "closed_listings", "users", column: "purchaser_id"
-  add_foreign_key "genres", "books"
   add_foreign_key "listings", "books"
   add_foreign_key "listings", "users"
   add_foreign_key "messages", "books"
