@@ -16,19 +16,10 @@ class ListingsController < ApplicationController
     def create_listing
         user = get_current_user
         if user
-        # create book
-          book = Book.create(title: book_params, user: user)
-        # create associated genres
-          genre_params.each do |genre| 
-            book.genres.build(genre: genre) 
-          end 
-        # create associated authors
-          author_params.each do |author| 
-            book.authors.build(author: author) 
-          end 
-        # save book
+     
+          book = Book.create(book_params, user: user)
           book.save 
-        # create listing and associate with user and book
+       
           listing = Listing.create(listing_params)
           listing.update(user: user, book: book)
           render json: listing 
@@ -44,15 +35,7 @@ class ListingsController < ApplicationController
           book = listing.book 
             if listing.user == user 
 
-                book.update(title: book_params)
-
-                book.authors.each do |author|
-                  author.update(author: author_params)
-                end
-
-                book.genres.each do |genre|
-                  genre.update(genre: genre_params)
-                end
+                book.update(book_params)
 
                 listing.update(listing_params)
                 render json: listing
@@ -83,16 +66,8 @@ class ListingsController < ApplicationController
 
     private 
 
-    def genre_params
-        params.require(:genre).permit(:genre)
-    end 
-
-    def author_params
-        params.require(:author).permit(:author)
-    end 
-
     def book_params 
-        params.require(:title).permit(:title)
+        params.require(:book).permit(:title, :author, genre)
     end 
 
     def listing_params
