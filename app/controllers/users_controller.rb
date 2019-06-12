@@ -34,6 +34,33 @@ class UsersController < ApplicationController
         end 
       end
 
+      def send_message 
+        book = Book.find_by(id: params[:book])
+        user = get_current_user
+        recipient = User.find_by(id: params[:recipient])
+        message = Message.create(book: book, sender: user, recipient: recipient, body: params[:body])
+        if user
+          render json: {message: message}
+        else
+          render json: {error: 'Invalid user.'}, status: 404
+        end 
+      end 
+
+      def delete_message
+        user = get_current_user
+        message = Message.find_by(id: params[:id])
+        if user
+            if message.sender == user  || message.recipient == user 
+                message.destroy
+                render json: {ok: 'Message successfully deleted.'}, status: 200
+            else 
+                render json: {error: 'Invalid request.'}, status: 400
+            end 
+        else
+          render json: {error: 'Invalid request.'}, status: 400
+        end 
+      end 
+
       # private 
 
       # def signup_params 

@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_06_05_123754) do
   create_table "messages", force: :cascade do |t|
     t.bigint "book_id"
     t.string "body"
+    t.boolean "read", default: false
     t.bigint "sender_id"
     t.bigint "recipient_id"
     t.datetime "created_at", null: false
