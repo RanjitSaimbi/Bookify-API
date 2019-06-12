@@ -3,6 +3,7 @@ class CreateMessages < ActiveRecord::Migration[5.2]
     create_table :messages do |t|
       t.references :book, foreign_key: true
       t.string :body
+      t.boolean :read, :default => false
       t.references :sender
       t.references :recipient
 

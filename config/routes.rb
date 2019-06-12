@@ -6,6 +6,8 @@ Rails.application.routes.draw do
    post '/signup', to: 'users#signup'
    post '/signin', to: 'users#signin'
    get '/validate', to: 'users#validate'
+   post '/sendmessage', to: 'users#send_message'
+   delete '/deletemessage', to: 'users#delete_message'
  
    # Listing routes
    get '/listings', to: 'listings#get_listings'
