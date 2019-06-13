@@ -9,6 +9,7 @@ Rails.application.routes.draw do
    post '/sendmessage', to: 'users#send_message'
    delete '/deletemessage', to: 'users#delete_message'
    get'/getbookmessages/:book_id', to: 'users#get_book_messages'
+   get '/getsenderrecipientmesssages', to: 'users#get_sender_recipient_messages'
  
    # Listing routes
    get '/listings', to: 'listings#get_listings'
