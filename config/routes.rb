@@ -8,6 +8,7 @@ Rails.application.routes.draw do
    get '/validate', to: 'users#validate'
    post '/sendmessage', to: 'users#send_message'
    delete '/deletemessage', to: 'users#delete_message'
+   get'/getbookmessages/:book_id', to: 'users#get_book_messages'
  
    # Listing routes
    get '/listings', to: 'listings#get_listings'

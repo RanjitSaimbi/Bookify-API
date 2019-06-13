@@ -34,6 +34,16 @@ class UsersController < ApplicationController
         end 
       end
 
+      def get_book_messages
+        user = get_current_user
+        messages = Message.where(book_id: params[:book_id])
+        if user
+          render json: messages, each_serializer: MessageSerializer
+        else
+          render json: {error: 'Invalid user.'}, status: 404
+        end 
+      end
+
       def send_message 
         book = Book.find_by(id: params[:book])
         user = get_current_user
