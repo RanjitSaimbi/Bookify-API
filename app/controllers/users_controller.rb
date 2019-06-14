@@ -46,9 +46,14 @@ class UsersController < ApplicationController
 
       def get_sender_recipient_messages
         user = get_current_user
-        messages = Message.where(recipient_id: user.id).or(Message.where( sender_id: user.id)).group_by{|x|x.book_id }
+        grouped_messages = Message.where(recipient_id: user.id).or(Message.where( sender_id: user.id)).group_by{|x|x.book.title }
+
+        serialized_grouped_messages = grouped_messages.transform_values do |v|
+          v.map {|message| MessageSerializer.new(message)}
+        end
+
         if user
-          render json: messages, each_serializer: MessageSerializer
+          render json: serialized_grouped_messages
         else
           render json: {error: 'Invalid user.'}, status: 404
         end 
