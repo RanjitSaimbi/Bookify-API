@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       def send_message 
         book = Book.find_by(id: params[:book])
         user = get_current_user
-        recipient = User.find_by(id: params[:recipient])
+        recipient = User.find_by(username: params[:recipient])
         message = Message.create(book: book, sender: user, recipient: recipient, body: params[:body])
         if user
           render json: {message: message}
