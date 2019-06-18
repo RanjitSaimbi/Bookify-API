@@ -9,7 +9,8 @@ m = User.create(email: "myrto.konstantinidi@gmail.com", username: "Myrto", passw
     title: Faker::Book.title,
     user: r,
     genre: Faker::Book.genre,
-    author: Faker::Book.author
+    author: Faker::Book.author,
+    description: "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus."
     )
 
     Listing.create(
@@ -27,7 +28,8 @@ end
     title: Faker::Book.title,
     user: m,
     genre: Faker::Book.genre,
-    author: Faker::Book.author
+    author: Faker::Book.author,
+    description: "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus."
     )
 
     Listing.create(
