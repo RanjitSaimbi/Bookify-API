@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
     def signup
       user_by_email = User.find_by(email: params[:email])
-      if user_by_email 
+      user_by_username = User.find_by(username: params[:username])
+      if user_by_email || user_by_username
         render json: { error: "This user already exists." }, status: 400
       else 
         user = User.create(username: params[:username], password:params[:password], email:params[:email])
@@ -46,7 +47,7 @@ class UsersController < ApplicationController
 
       def get_sender_recipient_messages
         user = get_current_user
-        grouped_messages = Message.where(recipient_id: user.id).or(Message.where( sender_id: user.id)).group_by{|x|x.book.title }
+        grouped_messages = Message.where(recipient_id: user.id).or(Message.where( sender_id: user.id)).group_by{|x|x.book.id }
 
         serialized_grouped_messages = grouped_messages.transform_values do |v|
           v.map {|message| MessageSerializer.new(message)}
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
         recipient = User.find_by(username: params[:recipient])
         message = Message.create(book: book, sender: user, recipient: recipient, body: params[:body])
         if user
-          render json: {message: message}
+          render json: {message: MessageSerializer.new(message)}
         else
           render json: {error: 'Invalid user.'}, status: 404
         end 
