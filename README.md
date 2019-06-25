@@ -1,24 +1,36 @@
-# README
+# Bookify :blue_book: :closed_book: :orange_book:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**An online platform for bibliophiles to turn their bookshelf into a personal library / bookstore.**
 
-Things you may want to cover:
+- **API** built with Ruby on Rails, Serializer and JWT Auth.
+- **WebApp** built with React.
+- Written in ES6 (Client).
+- Written with Ruby on Rails (API).
 
-* Ruby version
+## Features
 
-* System dependencies
+- User authentication using JSON Web Tokens
+- Database migration and seeding
+- Styling using MDBReact with custom CSS
+- Ruby on Rails schema with associations
+- Navigational components with React Router
+- Utilisation of Google Books API and Google Maps API
+- Hosted on Heroku at https://b-ookify.herokuapp.com/
 
-* Configuration
+## Setup
 
-* Database creation
+- Dependencies:
+  - Yarn version v1.16.0
+  - Node v11.11.0
+- `git clone https://github.com/RanjitSaimbi/Bookify-Client`
+- `cd client`
+- `yarn install`
+- `yarn run`
 
-* Database initialization
+## Screenshots
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Homepage](public/home.png "Homepage")
+![Books](public/books_view.png "Books")
+![Individual](public/individual_book_view.png "Individual")
+![Messages](public/messages.png "Messages")
+![Dashboard](public/dashboard.png "Dashboard")
